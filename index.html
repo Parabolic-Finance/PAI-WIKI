@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAI Wiki - Parabolic Agentic Intelligence Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* PAI Brand Colors */
+            --pai-primary: #6C5CE7;
+            --pai-secondary: #A29BFE;
+            --pai-accent: #00CEC9;
+            --pai-gold: #FDCB6E;
+            --pai-dark: #2D3436;
+            --pai-light: #DDD6FE;
+            --pai-gradient-primary: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --pai-gradient-secondary: linear-gradient(135deg, #00CEC9 0%, #55EFC4 100%);
+            --pai-gradient-accent: linear-gradient(135deg, #FDCB6E 0%, #E17055 100%);
+            --pai-gradient-dark: linear-gradient(180deg, #2D3436 0%, #636E72 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--pai-gradient-primary);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(108, 92, 231, 0.2);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: var(--pai-gradient-dark);
+            padding: 20px;
+            color: white;
+            overflow-y: auto;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            background: var(--pai-gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo .token {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: normal;
+        }
+
+        .toc {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .toc a:hover {
+            background: rgba(108, 92, 231, 0.2);
+            border-left-color: var(--pai-accent);
+            transform: translateX(5px);
+        }
+
+        .toc a.active {
+            background: rgba(108, 92, 231, 0.3);
+            border-left-color: var(--pai-accent);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--pai-gradient-primary);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--pai-gold);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(108, 92, 231, 0.05);
+        }
+
+        .section h2 {
+            color: var(--pai-dark);
+            margin-bottom: 20px;
+            font-size: 28px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: var(--pai-gradient-primary);
+            border-radius: 2px;
+        }
+
+        .section h3 {
+            color: var(--pai-dark);
+            margin: 20px 0 10px 0;
+            font-size: 20px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-expand {
+            background: var(--pai-gradient-primary);
+            color: white;
+        }
+
+        .btn-expand:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-discuss {
+            background: var(--pai-gradient-accent);
+            color: white;
+        }
+
+        .btn-discuss:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(253, 203, 110, 0.4);
+        }
+
+        .expanded-content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--pai-light), rgba(162, 155, 254, 0.1));
+            border-radius: 10px;
+            border-left: 4px solid var(--pai-primary);
+        }
+
+        .discussion {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(253, 203, 110, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--pai-gold);
+        }
+
+        .discussion-thread {
+            margin-top: 15px;
+        }
+
+        .discussion-post {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--pai-primary);
+        }
+
+        .discussion-author {
+            font-weight: bold;
+            color: var(--pai-dark);
+            margin-bottom: 5px;
+        }
+
+        .trading-strategies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .strategy-card {
+            background: var(--pai-gradient-primary);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .strategy-card h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .strategy-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .benefit-card {
+            background: var(--pai-gradient-secondary);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        .benefit-card h4 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .benefit-list {
+            list-style: none;
+        }
+
+        .benefit-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .benefit-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--pai-gold);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: var(--pai-gradient-accent);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <h1>PAI</h1>
+                <div class="token">Parabolic Agentic Intelligence</div>
+            </div>
+            <ul class="toc">
+                <li><a href="#overview" class="active">Project Overview</a></li>
+                <li><a href="#vision">PAI Vision</a></li>
+                <li><a href="#market-analysis">Market Analysis</a></li>
+                <li><a href="#trading-strategies">Trading Strategies</a></li>
+                <li><a href="#autonomous-agents">Autonomous Agents</a></li>
+                <li><a href="#agent-copying">Agent Copying System</a></li>
+                <li><a href="#creator-benefits">Creator Benefits</a></li>
+                <li><a href="#follower-benefits">Follower Benefits</a></li>
+                <li><a href="#influencer-program">Influencer Program</a></li>
+                <li><a href="#creator-economy">Creator Economy</a></li>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#tokenomics">Tokenomics</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div class="header-content">
+                    <h1>PAI Wiki</h1>
+                    <div class="subtitle">The Complete Guide to Parabolic Agentic Intelligence</div>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">1,247</div>
+                            <div class="stat-label">Active Agents</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">89.2%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">$2.4M</div>
+                            <div class="stat-label">Total Volume</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section id="overview" class="section">
+                <h2>Project Overview</h2>
+                <p>Parabolic Agentic Intelligence (PAI) represents a groundbreaking fusion of artificial intelligence and decentralized finance, creating autonomous trading agents that learn, adapt, and execute sophisticated trading strategies without human intervention.</p>
+                
+                <p>Our platform enables the creation of intelligent trading agents that can analyze market conditions, execute trades, and continuously optimize their performance using advanced machine learning algorithms. Each agent operates independently while contributing to a collective intelligence network.</p>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('overview')">
+                        📊 Expand Details
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('overview')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="overview-expanded" class="expanded-content">
+                    <h3>Core Technology</h3>
+                    <p>PAI utilizes a sophisticated neural network architecture that combines reinforcement learning, natural language processing, and advanced market analysis algorithms. Our agents can process vast amounts of data in real-time, including:</p>
+                    <ul>
+                        <li>Technical indicators and price patterns</li>
+                        <li>Social sentiment analysis</li>
+                        <li>Macroeconomic data</li>
+                        <li>On-chain analytics</li>
+                        <li>Cross-market correlations</li>
+                    </ul>
+                    
+                    <h3>Unique Value Proposition</h3>
+                    <p>Unlike traditional trading bots, PAI agents continuously evolve and improve their strategies based on market feedback and performance metrics. They can adapt to changing market conditions and discover new trading opportunities automatically.</p>
+                </div>
+
+                <div id="overview-discussion" class="discussion">
+                    <h3>Community Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>The PAI project represents a significant advancement in autonomous trading. What aspects of the technology are you most interested in exploring? I'm here to discuss any questions about the project's approach to AI-driven market analysis.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="vision" class="section">
+                <h2>PAI Vision: The Future of Trading</h2>
+                <p>PAI envisions becoming the world's first and largest marketplace for AI trading agents, revolutionizing how individuals and institutions approach financial markets through autonomous intelligence.</p>
+
+                <div class="highlight-box">
+                    <h3>🌍 Our Mission</h3>
+                    <p>To democratize advanced trading strategies and create the world's most intelligent autonomous trading ecosystem</p>
+                </div>
+
+                <h3>Why AI Trading Will Dominate:</h3>
+                <ul>
+                    <li><strong>Emotional Neutrality:</strong> AI eliminates fear, greed, and other psychological biases that destroy trading performance</li>
+                    <li><strong>24/7 Operation:</strong> Never sleeps, never misses opportunities, operates across all global markets simultaneously</li>
+                    <li><strong>Data Processing Power:</strong> Analyzes millions of data points in milliseconds - impossible for human traders</li>
+                    <li><strong>Consistent Execution:</strong> Follows strategies perfectly without deviation or second-guessing</li>
+                    <li><strong>Continuous Learning:</strong> Improves with every trade, adapts to new market conditions automatically</li>
+                </ul>
+
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>Human Limitations</h4>
+                        <p>8 hours/day, emotional decisions, limited data processing, inconsistent execution</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>AI Advantages</h4>
+                        <p>24/7 operation, emotionless execution, infinite data processing, perfect consistency</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('vision')">
+                        🔮 Future Vision
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('vision')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="vision-expanded" class="expanded-content">
+                    <h3>The Psychological Revolution</h3>
+                    <p><strong>Why Humans Fail at Trading:</strong></p>
+                    <ul>
+                        <li><strong>Loss Aversion:</strong> Fear of losses leads to premature exits and missed opportunities</li>
+                        <li><strong>Confirmation Bias:</strong> Seeking information that confirms existing beliefs</li>
+                        <li><strong>FOMO & FUD:</strong> Fear of missing out and fear, uncertainty, doubt drive irrational decisions</li>
+                        <li><strong>Overconfidence:</strong> Believing in ability to time markets and predict movements</li>
+                        <li><strong>Emotional Attachment:</strong> Getting attached to positions and refusing to cut losses</li>
+                    </ul>
+
+                    <h3>AI Agent Benefits for Traders</h3>
+                    <p><strong>Psychological Advantages:</strong></p>
+                    <ul>
+                        <li><strong>Peace of Mind:</strong> Sleep well knowing AI is monitoring markets 24/7</li>
+                        <li><strong>Reduced Stress:</strong> No more staring at charts or making split-second decisions</li>
+                        <li><strong>Time Freedom:</strong> Focus on life while AI handles trading complexities</li>
+                        <li><strong>Consistency:</strong> Steady performance without emotional rollercoaster</li>
+                        <li><strong>Professional Results:</strong> Access to institutional-grade strategies</li>
+                    </ul>
+
+                    <h3>The Future We're Building</h3>
+                    <ul>
+                        <li>World's largest marketplace for AI trading intelligence</li>
+                        <li>Democratized access to sophisticated trading strategies</li>
+                        <li>Global network of autonomous financial agents</li>
+                        <li>Revolutionary creator economy for strategy developers</li>
+                        <li>Seamless integration of human creativity and artificial intelligence</li>
+                    </ul>
+                </div>
+
+                <div id="vision-discussion" class="discussion">
+                    <h3>Vision Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>The transition to AI-powered trading is inevitable due to the fundamental limitations of human psychology in financial markets. PAI is positioned to lead this transformation by creating the infrastructure for autonomous trading agents. What aspects of human trading psychology do you think are most problematic?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="market-analysis" class="section">
+                <h2>Total Addressable Market</h2>
+                <p>The convergence of AI technology and cryptocurrency trading represents one of the largest market opportunities of our generation, with PAI positioned at the intersection of multiple high-growth sectors.</p>
+
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>Global Trading Market</h4>
+                        <p>$7.4 Trillion daily volume across all financial markets</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Crypto Market Cap</h4>
+                        <p>$2.3 Trillion with $150B+ daily trading volume</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>AI Market Size</h4>
+                        <p>$515 Billion by 2030, growing 37% annually</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Algo Trading Share</h4>
+                        <p>75% of all trades already executed by algorithms</p>
+                    </div>
+                </div>
+
+                <h3>Market Opportunity Breakdown:</h3>
+                <ul>
+                    <li><strong>Retail Crypto Traders:</strong> 300M+ global users seeking better performance</li>
+                    <li><strong>Traditional Traders:</strong> 15M+ stock/forex traders looking for crypto exposure</li>
+                    <li><strong>DeFi Participants:</strong> 7M+ users interested in automated yield strategies</li>
+                    <li><strong>Institutional Adoption:</strong> $100B+ institutional crypto investments growing rapidly</li>
+                    <li><strong>Copy Trading Market:</strong> $2B+ annual volume with 20M+ users globally</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('market-analysis')">
+                        📊 Market Deep Dive
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('market-analysis')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="market-analysis-expanded" class="expanded-content">
+                    <h3>AI in Crypto Trading Trends</h3>
+                    <p><strong>Current Market Dynamics:</strong></p>
+                    <ul>
+                        <li><strong>Algorithmic Trading Growth:</strong> 85% annual growth in crypto algo trading</li>
+                        <li><strong>Institutional Demand:</strong> Major funds allocating to AI-driven strategies</li>
+                        <li><strong>Retail Sophistication:</strong> Growing demand for professional-grade tools</li>
+                        <li><strong>Cross-Chain Opportunities:</strong> Multi-chain arbitrage and DeFi automation</li>
+                        <li><strong>Regulatory Clarity:</strong> Improving regulatory environment supports growth</li>
+                    </ul>
+
+                    <h3>Competitive Landscape</h3>
+                    <ul>
+                        <li><strong>Traditional Platforms:</strong> eToro, ZuluTrade focus on human copy trading</li>
+                        <li><strong>Crypto Bots:</strong> 3Commas, Cryptohopper offer basic automation</li>
+                        <li><strong>DeFi Protocols:</strong> Yearn Finance, Harvest provide yield farming</li>
+                        <li><strong>PAI Advantage:</strong> Only platform combining AI agents with social trading</li>
+                    </ul>
+
+                    <h3>Market Penetration Strategy</h3>
+                    <ul>
+                        <li>Target 1% of crypto traders in Year 1 (3M users)</li>
+                        <li>Capture $10B in assets under management by 2027</li>
+                        <li>Expand to traditional markets by 2026</li>
+                        <li>Build network effects through creator economy</li>
+                        <li>International expansion across 50+ countries</li>
+                    </ul>
+                </div>
+
+                <div id="market-analysis-discussion" class="discussion">
+                    <h3>Market Analysis Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>The TAM for AI trading represents a convergence of multiple growth trends. With 75% of traditional trading already algorithmic and crypto adoption accelerating, PAI is positioned at the perfect intersection. The key differentiator is combining AI sophistication with social trading accessibility. What factors do you think will drive mass adoption of AI trading?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                <h2>Trading Strategies & Agent Types</h2>
+                <p>PAI supports multiple trading strategies, each generating specialized agents optimized for specific market conditions and investment objectives.</p>
+
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>Momentum Agents</h4>
+                        <p>Specialized in identifying and riding price trends using advanced momentum indicators and breakout patterns.</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Arbitrage Agents</h4>
+                        <p>High-frequency agents that exploit price differences across multiple exchanges and trading pairs.</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Mean Reversion Agents</h4>
+                        <p>Focus on identifying overbought/oversold conditions and capitalizing on price corrections.</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Market Making Agents</h4>
+                        <p>Provide liquidity by placing buy/sell orders around current market prices, earning from bid-ask spreads.</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Sentiment Agents</h4>
+                        <p>Analyze social media, news, and market sentiment to predict price movements before they occur.</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>DeFi Yield Agents</h4>
+                        <p>Optimize yield farming and liquidity provision across multiple DeFi protocols automatically.</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('strategies')">
+                        🚀 Expand Strategies
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('strategies')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="strategies-expanded" class="expanded-content">
+                    <h3>Strategy Performance Metrics</h3>
+                    <p>Each strategy type is continuously monitored and optimized based on:</p>
+                    <ul>
+                        <li><strong>Sharpe Ratio:</strong> Risk-adjusted returns measurement</li>
+                        <li><strong>Maximum Drawdown:</strong> Worst-case scenario analysis</li>
+                        <li><strong>Win Rate:</strong> Percentage of profitable trades</li>
+                        <li><strong>Average Hold Time:</strong> Strategy-specific timing optimization</li>
+                        <li><strong>Volatility Adaptation:</strong> Performance across different market conditions</li>
+                    </ul>
+
+                    <h3>Agent Evolution Process</h3>
+                    <p>Agents undergo continuous improvement through:</p>
+                    <ul>
+                        <li>Genetic algorithm optimization</li>
+                        <li>Reinforcement learning feedback loops</li>
+                        <li>Cross-agent knowledge sharing</li>
+                        <li>Market regime detection and adaptation</li>
+                    </ul>
+                </div>
+
+                <div id="strategies-discussion" class="discussion">
+                    <h3>Strategy Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>Each trading strategy creates agents with unique characteristics. Momentum agents excel in trending markets, while mean reversion agents perform better in sideways markets. Which trading approach aligns best with your investment philosophy? I can explain how different market conditions favor different agent types.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="autonomous-agents" class="section">
+                <h2>Autonomous Trading Operations</h2>
+                <p>PAI agents operate completely autonomously, making trading decisions based on real-time market analysis and learned patterns. They execute trades, manage risk, and optimize performance without human intervention.</p>
+
+                <div class="highlight-box">
+                    <h3>🤖 Fully Autonomous Operation</h3>
+                    <p>Agents trade 24/7 across global markets, never missing opportunities due to human limitations</p>
+                </div>
+
+                <h3>Key Autonomous Features:</h3>
+                <ul>
+                    <li><strong>Real-time Decision Making:</strong> Agents analyze market conditions and execute trades within milliseconds</li>
+                    <li><strong>Risk Management:</strong> Built-in stop-loss, position sizing, and portfolio diversification</li>
+                    <li><strong>Market Adaptation:</strong> Automatic strategy adjustment based on changing market conditions</li>
+                    <li><strong>Performance Optimization:</strong> Continuous learning from successful and unsuccessful trades</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('autonomous')">
+                        ⚙️ Technical Details
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('autonomous')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="autonomous-expanded" class="expanded-content">
+                    <h3>Agent Architecture</h3>
+                    <p>Each agent consists of multiple interconnected modules:</p>
+                    <ul>
+                        <li><strong>Perception Module:</strong> Processes market data, news, and social sentiment</li>
+                        <li><strong>Analysis Engine:</strong> Applies technical and fundamental analysis</li>
+                        <li><strong>Decision Layer:</strong> Weighs multiple factors to make trading decisions</li>
+                        <li><strong>Execution Engine:</strong> Handles order placement and trade management</li>
+                        <li><strong>Learning System:</strong> Updates strategies based on performance feedback</li>
+                    </ul>
+
+                    <h3>Security & Safety Measures</h3>
+                    <p>Agents include multiple safety mechanisms:</p>
+                    <ul>
+                        <li>Maximum position size limits</li>
+                        <li>Daily loss thresholds</li>
+                        <li>Emergency shutdown protocols</li>
+                        <li>Multi-signature wallet protection</li>
+                        <li>Audit trail for all transactions</li>
+                    </ul>
+                </div>
+
+                <div id="autonomous-discussion" class="discussion">
+                    <h3>Autonomous Trading Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>Autonomous trading removes emotional bias and enables 24/7 market participation. However, it's important to understand that no trading system is risk-free. How comfortable are you with algorithmic trading, and what safety features are most important to you?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="agent-copying" class="section">
+                <h2>Agent Copying System</h2>
+                <p>The PAI platform allows users to copy successful agents, democratizing access to sophisticated trading strategies. The copying system enables both novice and experienced traders to benefit from top-performing agents.</p>
+
+                <h3>How Agent Copying Works:</h3>
+                <p>Users can browse through a marketplace of agents, review their performance metrics, and choose to copy their trading strategies. When you copy an agent:</p>
+                <ul>
+                    <li>The agent's trades are automatically replicated in your portfolio</li>
+                    <li>Position sizes are scaled according to your account balance</li>
+                    <li>You maintain full control over your funds</li>
+                    <li>You can stop copying at any time</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('copying')">
+                        📋 Copying Details
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('copying')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="copying-expanded" class="expanded-content">
+                    <h3>Agent Selection Criteria</h3>
+                    <p>When choosing agents to copy, consider:</p>
+                    <ul>
+                        <li><strong>Historical Performance:</strong> Returns, consistency, and drawdown periods</li>
+                        <li><strong>Risk Level:</strong> Volatility and maximum position sizes</li>
+                        <li><strong>Strategy Type:</strong> Alignment with your investment goals</li>
+                        <li><strong>Time Horizon:</strong> Short-term vs. long-term strategies</li>
+                        <li><strong>Market Focus:</strong> Asset classes and geographic markets</li>
+                    </ul>
+
+                    <h3>Copy Trading Benefits</h3>
+                    <ul>
+                        <li>No need for market knowledge or analysis</li>
+                        <li>Diversify across multiple strategies</li>
+                        <li>Learn from successful traders</li>
+                        <li>Passive income generation</li>
+                        <li>Professional-grade strategies accessible to everyone</li>
+                    </ul>
+                </div>
+
+                <div id="copying-discussion" class="discussion">
+                    <h3>Copy Trading Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>Copy trading democratizes access to sophisticated strategies, but it's crucial to understand the risks involved. Past performance doesn't guarantee future results. What factors do you consider most important when evaluating trading strategies to copy?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="creator-benefits" class="section">
+                <h2>Benefits for Agent Creators</h2>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h4>💰 Revenue Generation</h4>
+                        <ul class="benefit-list">
+                            <li>Performance fees from followers</li>
+                            <li>Monthly management fees</li>
+                            <li>Success bonuses for top performers</li>
+                            <li>PAI token rewards</li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>📈 Reputation & Recognition</h4>
+                        <ul class="benefit-list">
+                            <li>Public performance leaderboards</li>
+                            <li>Verified creator badges</li>
+                            <li>Community recognition</li>
+                            <li>Professional networking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Creator Incentive Structure:</h3>
+                <p>PAI creates a sustainable ecosystem where successful agent creators are rewarded for their contributions:</p>
+                <ul>
+                    <li><strong>Performance Fees:</strong> 15-25% of profits generated for followers</li>
+                    <li><strong>Management Fees:</strong> 1-2% annual fee on assets under management</li>
+                    <li><strong>PAI Token Bonuses:</strong> Additional rewards in native tokens</li>
+                    <li><strong>Scaling Rewards:</strong> Higher fees for proven track record</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('creator-benefits')">
+                        🎯 Creator Program Details
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('creator-benefits')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="creator-benefits-expanded" class="expanded-content">
+                    <h3>Creator Support Program</h3>
+                    <p>PAI provides comprehensive support for agent creators:</p>
+                    <ul>
+                        <li><strong>Development Tools:</strong> Advanced backtesting and optimization frameworks</li>
+                        <li><strong>Data Access:</strong> Premium market data feeds and analytics</li>
+                        <li><strong>Educational Resources:</strong> Strategy development courses and workshops</li>
+                        <li><strong>Community Forums:</strong> Collaboration with other creators</li>
+                        <li><strong>Marketing Support:</strong> Promotion of top-performing agents</li>
+                    </ul>
+
+                    <h3>Creator Tiers & Benefits</h3>
+                    <ul>
+                        <li><strong>Bronze:</strong> Basic tools, 15% performance fees</li>
+                        <li><strong>Silver:</strong> Advanced analytics, 20% performance fees</li>
+                        <li><strong>Gold:</strong> Premium data, 25% performance fees</li>
+                        <li><strong>Platinum:</strong> White-label options, custom fee structures</li>
+                    </ul>
+                </div>
+
+                <div id="creator-benefits-discussion" class="discussion">
+                    <h3>Creator Benefits Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>The creator program is designed to attract top talent by providing both financial incentives and professional recognition. The tiered system rewards consistent performance and helps creators build sustainable businesses. What motivates you most about creating trading agents - the financial rewards or the technical challenge?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="follower-benefits" class="section">
+                <h2>Benefits for Agent Followers</h2>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h4>🎯 Access to Expertise</h4>
+                        <ul class="benefit-list">
+                            <li>Professional trading strategies</li>
+                            <li>Vetted and tested algorithms</li>
+                            <li>Diversified approach options</li>
+                            <li>Institutional-grade execution</li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>⚡ Convenience & Automation</h4>
+                        <ul class="benefit-list">
+                            <li>24/7 automated trading</li>
+                            <li>No manual intervention required</li>
+                            <li>Real-time performance monitoring</li>
+                            <li>Easy portfolio management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Follower Advantages:</h3>
+                <ul>
+                    <li><strong>Risk Diversification:</strong> Copy multiple agents with different strategies</li>
+                    <li><strong>Performance Transparency:</strong> Full visibility into agent performance and trades</li>
+                    <li><strong>Flexible Investment:</strong> Start with any amount and scale up gradually</li>
+                    <li><strong>Learning Opportunity:</strong> Understand successful trading patterns</li>
+                    <li><strong>Professional Results:</strong> Access to institutional-quality strategies</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('follower-benefits')">
+                        👥 Follower Features
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('follower-benefits')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="follower-benefits-expanded" class="expanded-content">
+                    <h3>Advanced Follower Features</h3>
+                    <ul>
+                        <li><strong>Portfolio Builder:</strong> Combine multiple agents for optimal diversification</li>
+                        <li><strong>Risk Controls:</strong> Set maximum drawdown and position size limits</li>
+                        <li><strong>Performance Analytics:</strong> Detailed reporting and attribution analysis</li>
+                        <li><strong>Social Features:</strong> Follow and communicate with successful creators</li>
+                        <li><strong>Mobile App:</strong> Monitor and manage your copied strategies on-the-go</li>
+                    </ul>
+
+                    <h3>Cost Structure for Followers</h3>
+                    <ul>
+                        <li>Performance fees only charged on profitable months</li>
+                        <li>No hidden costs or additional trading fees</li>
+                        <li>Transparent fee structure displayed upfront</li>
+                        <li>Ability to negotiate fees for large investments</li>
+                    </ul>
+                </div>
+
+                <div id="follower-benefits-discussion" class="discussion">
+                    <h3>Follower Benefits Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>Copy trading offers a way to participate in sophisticated strategies without deep market expertise. However, it's important to diversify across multiple agents and understand that all trading involves risk. What's your approach to evaluating and selecting trading strategies to follow?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="influencer-program" class="section">
+                <h2>PAI Influencer Program</h2>
+                <p>Join the most rewarding influencer program in DeFi and earn substantial PAI tokens while building your network and helping your followers access professional AI trading strategies.</p>
+
+                <div class="highlight-box">
+                    <h3>💰 Earn Up to $50,000+ Monthly</h3>
+                    <p>Top influencers earning 6-figure incomes through referrals, network building, and performance bonuses</p>
+                </div>
+
+                <h3>How Influencers Earn PAI:</h3>
+                <ul>
+                    <li><strong>Direct Referrals:</strong> 20% of staking fees from referred users</li>
+                    <li><strong>Network Building:</strong> 5% commission from 2nd-level referrals</li>
+                    <li><strong>Performance Bonuses:</strong> Extra rewards when your network performs well</li>
+                    <li><strong>Content Creation:</strong> Paid partnerships for educational content</li>
+                    <li><strong>Event Hosting:</strong> Speaking fees and workshop compensation</li>
+                </ul>
+
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>Tier 1: Rising Star</h4>
+                        <p>10-100 referrals<br>15% commission rate<br>Monthly bonus pool</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Tier 2: Established</h4>
+                        <p>100-500 referrals<br>20% commission rate<br>Priority support</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Tier 3: Elite</h4>
+                        <p>500-2000 referrals<br>25% commission rate<br>Custom campaigns</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Tier 4: Legend</h4>
+                        <p>2000+ referrals<br>30% commission rate<br>Equity participation</p>
+                    </div>
+                </div>
+
+                <h3>🏆 Influencer Leaderboard</h3>
+                <div style="background: linear-gradient(135deg, #ffd700, #ffed4e); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px 100px 120px; gap: 15px; font-weight: bold; margin-bottom: 15px; color: #333;">
+                        <div>Rank</div>
+                        <div>Influencer</div>
+                        <div>Referrals</div>
+                        <div>Network AUM</div>
+                        <div>Monthly Earnings</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px 100px 120px; gap: 15px; margin-bottom: 10px; color: #444;">
+                        <div>🥇 1</div>
+                        <div>@CryptoKingAI</div>
+                        <div>3,247</div>
+                        <div>$2.4M</div>
+                        <div>$48,000</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px 100px 120px; gap: 15px; margin-bottom: 10px; color: #444;">
+                        <div>🥈 2</div>
+                        <div>@DeFiQueen</div>
+                        <div>2,891</div>
+                        <div>$1.8M</div>
+                        <div>$36,500</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px 100px 120px; gap: 15px; margin-bottom: 10px; color: #444;">
+                        <div>🥉 3</div>
+                        <div>@AITradePro</div>
+                        <div>2,156</div>
+                        <div>$1.3M</div>
+                        <div>$28,750</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px 100px 120px; gap: 15px; margin-bottom: 10px; color: #444;">
+                        <div>4</div>
+                        <div>@BlockchainBoss</div>
+                        <div>1,847</div>
+                        <div>$950K</div>
+                        <div>$22,100</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px 100px 120px; gap: 15px; color: #444;">
+                        <div>5</div>
+                        <div>@CryptoCrusader</div>
+                        <div>1,523</div>
+                        <div>$780K</div>
+                        <div>$18,900</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('influencer-program')">
+                        🎯 Join Program
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('influencer-program')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="influencer-program-expanded" class="expanded-content">
+                    <h3>How to Generate Your Referral Code</h3>
+                    <p><strong>Step-by-Step Process:</strong></p>
+                    <ul>
+                        <li><strong>Step 1:</strong> Complete KYC verification and stake minimum 1,000 PAI tokens</li>
+                        <li><strong>Step 2:</strong> Navigate to "Influencer Dashboard" in your account</li>
+                        <li><strong>Step 3:</strong> Click "Generate Referral Code" and customize your unique link</li>
+                        <li><strong>Step 4:</strong> Set up tracking preferences and commission splits</li>
+                        <li><strong>Step 5:</strong> Download marketing materials and brand assets</li>
+                    </ul>
+
+                    <h3>Marketing Guidelines</h3>
+                    <p><strong>Brand Positioning:</strong></p>
+                    <ul>
+                        <li><strong>Core Message:</strong> "The Future of Trading is Autonomous"</li>
+                        <li><strong>Value Proposition:</strong> Professional AI strategies accessible to everyone</li>
+                        <li><strong>Target Audience:</strong> Crypto traders seeking consistent performance</li>
+                        <li><strong>Tone:</strong> Professional yet approachable, data-driven, innovative</li>
+                    </ul>
+
+                    <h3>Content Guidelines</h3>
+                    <p><strong>Approved Content Types:</strong></p>
+                    <ul>
+                        <li><strong>Educational:</strong> How AI trading works, strategy explanations</li>
+                        <li><strong>Performance Reviews:</strong> Honest agent performance analysis</li>
+                        <li><strong>Tutorials:</strong> Platform walkthroughs and setup guides</li>
+                        <li><strong>Market Analysis:</strong> AI trading trends and insights</li>
+                        <li><strong>Success Stories:</strong> User testimonials and case studies</li>
+                    </ul>
+
+                    <h3>Prohibited Content</h3>
+                    <ul>
+                        <li>Guaranteed returns or "get rich quick" promises</li>
+                        <li>Medical or lifestyle claims unrelated to trading</li>
+                        <li>Spam or excessive promotion across channels</li>
+                        <li>False performance data or misleading statistics</li>
+                        <li>Promotion of competing platforms or services</li>
+                    </ul>
+
+                    <h3>Marketing Assets Provided</h3>
+                    <ul>
+                        <li>High-quality graphics and video content</li>
+                        <li>Customizable presentation templates</li>
+                        <li>Performance data visualizations</li>
+                        <li>Educational infographics and guides</li>
+                        <li>Social media content calendars</li>
+                        <li>Email marketing templates</li>
+                    </ul>
+                </div>
+
+                <div id="influencer-program-discussion" class="discussion">
+                    <h3>Influencer Program Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>The PAI influencer program offers some of the highest commissions in DeFi while maintaining strict quality standards. The tiered system rewards long-term network building over quick sign-ups. Success requires genuine belief in AI trading and consistent, valuable content creation. What's your current audience size and engagement rate? I can help you estimate potential earnings based on your metrics.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="creator-economy" class="section">
+                <h2>The Agent Creator Economy</h2>
+                <p>PAI is pioneering a revolutionary creator economy where skilled developers, traders, and AI specialists can monetize their expertise by building autonomous trading agents that serve millions of users globally.</p>
+
+                <div class="highlight-box">
+                    <h3>🚀 The Big Picture</h3>
+                    <p>Creating a $1 billion creator economy where top agent builders earn more than traditional hedge fund managers</p>
+                </div>
+
+                <h3>Success Factors Behind PAI:</h3>
+                <ul>
+                    <li><strong>Perfect Timing:</strong> Intersection of AI advancement and crypto maturation</li>
+                    <li><strong>Network Effects:</strong> More users attract better creators, creating virtuous cycle</li>
+                    <li><strong>Aligned Incentives:</strong> Success of agents directly benefits creators and users</li>
+                    <li><strong>Technological Moat:</strong> Advanced AI infrastructure difficult to replicate</li>
+                    <li><strong>First-Mover Advantage:</strong> Building the category-defining platform</li>
+                </ul>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h4>🧠 For Agent Creators</h4>
+                        <ul class="benefit-list">
+                            <li>Monetize AI and trading expertise</li>
+                            <li>Build passive income streams</li>
+                            <li>Global distribution platform</li>
+                            <li>Professional recognition and branding</li>
+                            <li>Access to premium data and tools</li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>👥 For the Community</h4>
+                        <ul class="benefit-list">
+                            <li>Access to institutional-grade strategies</li>
+                            <li>Transparent performance metrics</li>
+                            <li>Diversified investment options</li>
+                            <li>Lower barriers to entry</li>
+                            <li>Continuous innovation and improvement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Key Stakeholder Roles:</h3>
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>👥 Community</h4>
+                        <p>Provides feedback, adoption, and network effects that drive platform growth</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>🎯 Influencers</h4>
+                        <p>Bridge mainstream adoption through education and trust-building</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>👨‍💼 Founders</h4>
+                        <p>Provide vision, technology leadership, and ecosystem coordination</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>🔬 Agent Creators</h4>
+                        <p>Core value creators developing innovative strategies and AI solutions</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('creator-economy')">
+                        🎯 Economy Deep Dive
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('creator-economy')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="creator-economy-expanded" class="expanded-content">
+                    <h3>The Creator Economy Revolution</h3>
+                    <p><strong>Economic Model:</strong></p>
+                    <ul>
+                        <li><strong>Performance-Based Rewards:</strong> Creators earn based on agent success, not just creation</li>
+                        <li><strong>Scaling Opportunities:</strong> Top creators can manage billions in AUM</li>
+                        <li><strong>IP Protection:</strong> Secure, proprietary algorithm ownership</li>
+                        <li><strong>Global Market Access:</strong> Instant access to worldwide user base</li>
+                        <li><strong>Continuous Revenue:</strong> Ongoing fees vs. one-time payments</li>
+                    </ul>
+
+                    <h3>Community-Driven Growth</h3>
+                    <p><strong>Role of Each Stakeholder:</strong></p>
+                    
+                    <p><strong>Community Members:</strong></p>
+                    <ul>
+                        <li>Test and validate new agents through usage</li>
+                        <li>Provide feedback for continuous improvement</li>
+                        <li>Create network effects through word-of-mouth</li>
+                        <li>Drive platform adoption and token demand</li>
+                    </ul>
+
+                    <p><strong>Influencers:</strong></p>
+                    <ul>
+                        <li>Educate audiences about AI trading benefits</li>
+                        <li>Build trust through authentic testimonials</li>
+                        <li>Bridge gap between technology and mainstream users</li>
+                        <li>Create content that drives platform awareness</li>
+                    </ul>
+
+                    <p><strong>Founders:</strong></p>
+                    <ul>
+                        <li>Set technical and strategic vision</li>
+                        <li>Ensure platform scalability and security</li>
+                        <li>Coordinate ecosystem development</li>
+                        <li>Maintain alignment between all stakeholders</li>
+                    </ul>
+
+                    <p><strong>Agent Creators:</strong></p>
+                    <ul>
+                        <li>Develop innovative trading strategies</li>
+                        <li>Continuously optimize agent performance</li>
+                        <li>Push boundaries of AI trading technology</li>
+                        <li>Create differentiated value propositions</li>
+                    </ul>
+
+                    <h3>Economic Flywheel Effect</h3>
+                    <ul>
+                        <li><strong>Step 1:</strong> Successful agents attract more users</li>
+                        <li><strong>Step 2:</strong> More users create larger revenue pools</li>
+                        <li><strong>Step 3:</strong> Higher rewards attract better creators</li>
+                        <li><strong>Step 4:</strong> Better creators build more successful agents</li>
+                        <li><strong>Step 5:</strong> Cycle accelerates with network effects</li>
+                    </ul>
+
+                    <h3>Long-term Vision: The $1B Creator Economy</h3>
+                    <ul>
+                        <li>10,000+ active agent creators by 2027</li>
+                        <li>$100B+ assets under management across all agents</li>
+                        <li>Top creators earning $10M+ annually</li>
+                        <li>Global network of AI trading intelligence</li>
+                        <li>Standard for autonomous financial services</li>
+                    </ul>
+                </div>
+
+                <div id="creator-economy-discussion" class="discussion">
+                    <h3>Creator Economy Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>The creator economy represents a fundamental shift from traditional employment to value-based compensation. PAI's model aligns creator success with user outcomes, creating sustainable incentives for innovation. This approach has the potential to attract the world's best trading minds to build for retail users rather than just institutions. What role do you see yourself playing in this ecosystem?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                <h2>Getting Started with PAI</h2>
+                <p>Begin your journey with Parabolic Agentic Intelligence in three simple steps:</p>
+
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>1. Create Account</h4>
+                        <p>Sign up and complete KYC verification to access the platform</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>2. Choose Strategy</h4>
+                        <p>Browse agents, review performance, and select strategies to copy</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>3. Start Trading</h4>
+                        <p>Fund your account and let AI agents trade on your behalf</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>🎁 New User Benefits</h3>
+                    <p>Get started with 100 free PAI tokens and reduced fees for your first 30 days!</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('getting-started')">
+                        📚 Detailed Guide
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('getting-started')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="getting-started-expanded" class="expanded-content">
+                    <h3>Detailed Onboarding Process</h3>
+                    <p><strong>Step 1: Account Creation</strong></p>
+                    <ul>
+                        <li>Provide email and create secure password</li>
+                        <li>Complete identity verification (KYC)</li>
+                        <li>Set up two-factor authentication</li>
+                        <li>Review and accept terms of service</li>
+                    </ul>
+
+                    <p><strong>Step 2: Account Funding</strong></p>
+                    <ul>
+                        <li>Connect bank account or crypto wallet</li>
+                        <li>Make initial deposit (minimum $100)</li>
+                        <li>Choose risk tolerance settings</li>
+                        <li>Set investment allocation preferences</li>
+                    </ul>
+
+                    <p><strong>Step 3: Agent Selection</strong></p>
+                    <ul>
+                        <li>Browse agent marketplace</li>
+                        <li>Review performance metrics and risk profiles</li>
+                        <li>Start with paper trading to test strategies</li>
+                        <li>Begin with small allocations to preferred agents</li>
+                    </ul>
+                </div>
+
+                <div id="getting-started-discussion" class="discussion">
+                    <h3>Getting Started Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>Starting with PAI is straightforward, but it's wise to begin conservatively. I recommend starting with paper trading to understand how the agents work, then gradually increasing your investment as you become more comfortable. What's your experience level with automated trading systems?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tokenomics" class="section">
+                <h2>PAI Tokenomics</h2>
+                <p>The PAI token serves as the cornerstone of the Parabolic Agentic Intelligence ecosystem, with a unique utility-driven model that directly ties token unlock to platform activity and agent performance.</p>
+
+                <div class="highlight-box">
+                    <h3>🚀 Launched on DEXScreener</h3>
+                    <p>Initial launch with 8.7M PAI tokens paired with USDC at $0.004 average price</p>
+                </div>
+
+                <h3>Core Token Utility:</h3>
+                <ul>
+                    <li><strong>Agent Staking Requirement:</strong> 10% of total investment must be staked in PAI to launch or copy agents</li>
+                    <li><strong>Trading-Based Unlock:</strong> Tokens unlock progressively as agents execute trades</li>
+                    <li><strong>Governance Rights:</strong> Vote on platform upgrades and parameter changes</li>
+                    <li><strong>Fee Discounts:</strong> Reduced trading and performance fees when paying with PAI</li>
+                    <li><strong>Premium Access:</strong> Advanced analytics and priority support features</li>
+                </ul>
+
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>Total Supply</h4>
+                        <p>10,000,000,000 PAI</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Initial Pool</h4>
+                        <p>8,700,000 PAI</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Launch Price</h4>
+                        <p>$0.004</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('tokenomics')">
+                        📊 Token Distribution
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('tokenomics')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="tokenomics-expanded" class="expanded-content">
+                    <h3>Unique Unlock Mechanism</h3>
+                    <p><strong>Liquidity Lock & Progressive Unlock:</strong></p>
+                    <ul>
+                        <li>All 10B tokens initially locked in liquidity pool</li>
+                        <li>Tokens unlock based on actual trading volume and agent performance</li>
+                        <li>Higher trading activity = faster token unlock rate</li>
+                        <li>Ensures token supply grows with platform utility and adoption</li>
+                    </ul>
+
+                    <h3>Staking Requirements</h3>
+                    <p><strong>10% PAI Staking Rule:</strong></p>
+                    <ul>
+                        <li>To invest $1,000 in an agent → Must stake $100 worth of PAI tokens</li>
+                        <li>To create an agent with $5,000 → Must stake $500 worth of PAI tokens</li>
+                        <li>Staked PAI earns additional rewards while providing platform security</li>
+                        <li>Staking creates constant buying pressure as platform grows</li>
+                    </ul>
+
+                    <h3>Token Distribution (10B Total)</h3>
+                    <ul>
+                        <li><strong>Locked Liquidity Pool:</strong> 87% (8.7B tokens)</li>
+                        <li><strong>Team & Development:</strong> 8% (800M tokens, vested over 4 years)</li>
+                        <li><strong>Marketing & Partnerships:</strong> 3% (300M tokens)</li>
+                        <li><strong>Community Rewards:</strong> 1.5% (150M tokens)</li>
+                        <li><strong>Advisory & Legal:</strong> 0.5% (50M tokens)</li>
+                    </ul>
+
+                    <h3>Value Accrual Mechanisms</h3>
+                    <ul>
+                        <li><strong>Mandatory Staking:</strong> 10% requirement drives consistent demand</li>
+                        <li><strong>Trading-Based Unlock:</strong> Supply increases only with utility</li>
+                        <li><strong>Performance Rewards:</strong> Successful agents earn additional PAI</li>
+                        <li><strong>Fee Burn Mechanism:</strong> Portion of platform fees burned quarterly</li>
+                        <li><strong>Governance Staking:</strong> Additional staking for voting power</li>
+                    </ul>
+
+                    <h3>Economic Model Benefits</h3>
+                    <ul>
+                        <li>Aligns token supply with platform growth</li>
+                        <li>Creates organic buying pressure through staking requirements</li>
+                        <li>Rewards active participants over passive holders</li>
+                        <li>Prevents token dumps by linking unlock to utility</li>
+                        <li>Provides sustainable tokenomics for long-term growth</li>
+                    </ul>
+                </div>
+
+                <div id="tokenomics-discussion" class="discussion">
+                    <h3>Tokenomics Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>PAI's innovative tokenomics model directly ties token unlock to platform utility, creating a sustainable growth mechanism. The 10% staking requirement ensures only serious participants can access agents while generating consistent buying pressure. This trading-based unlock mechanism is quite unique - what are your thoughts on linking token supply to actual platform usage?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="roadmap" class="section">
+                <h2>Development Roadmap</h2>
+                <p>PAI's roadmap focuses on continuous innovation and platform expansion to maintain leadership in autonomous trading technology.</p>
+
+                <h3>2025 Milestones:</h3>
+                <ul>
+                    <li>✅ <strong>Q1:</strong> Platform launch with 50+ initial agents</li>
+                    <li>🔄 <strong>Q2:</strong> Mobile app release and social trading features</li>
+                    <li>🎯 <strong>Q3:</strong> Cross-chain integration (Ethereum, BSC, Polygon)</li>
+                    <li>📋 <strong>Q4:</strong> Institutional trading suite and API access</li>
+                </ul>
+
+                <h3>2026 Vision:</h3>
+                <ul>
+                    <li>AI-powered portfolio optimization</li>
+                    <li>Decentralized autonomous organization (DAO) governance</li>
+                    <li>Integration with traditional financial markets</li>
+                    <li>Advanced risk management tools</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('roadmap')">
+                        🗺️ Detailed Roadmap
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('roadmap')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="roadmap-expanded" class="expanded-content">
+                    <h3>Detailed Development Timeline</h3>
+                    
+                    <p><strong>Q2 2025 - Social Trading Era</strong></p>
+                    <ul>
+                        <li>iOS and Android mobile applications</li>
+                        <li>Social features: follow creators, comment on strategies</li>
+                        <li>Advanced portfolio analytics and reporting</li>
+                        <li>Copy trading optimization algorithms</li>
+                    </ul>
+
+                    <p><strong>Q3 2025 - Multi-Chain Expansion</strong></p>
+                    <ul>
+                        <li>Ethereum mainnet integration</li>
+                        <li>Binance Smart Chain support</li>
+                        <li>Polygon network compatibility</li>
+                        <li>Cross-chain arbitrage agents</li>
+                    </ul>
+
+                    <p><strong>Q4 2025 - Enterprise Solutions</strong></p>
+                    <ul>
+                        <li>Institutional trading dashboard</li>
+                        <li>API access for third-party developers</li>
+                        <li>White-label solutions for exchanges</li>
+                        <li>Compliance and regulatory features</li>
+                    </ul>
+                </div>
+
+                <div id="roadmap-discussion" class="discussion">
+                    <h3>Roadmap Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>The roadmap shows ambitious but achievable goals for expanding PAI's capabilities. The focus on mobile access and cross-chain compatibility should significantly broaden the user base. Which upcoming features are you most excited about?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="community" class="section">
+                <h2>Join the PAI Community</h2>
+                <p>Connect with thousands of traders, developers, and investors in the PAI ecosystem across multiple platforms.</p>
+
+                <div class="trading-strategies">
+                    <div class="strategy-card">
+                        <h4>📱 Discord</h4>
+                        <p>Real-time discussions, agent alerts, and community support</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>🐦 Twitter</h4>
+                        <p>Latest updates, market insights, and project announcements</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>📰 Medium</h4>
+                        <p>In-depth articles, tutorials, and technical documentation</p>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>💼 LinkedIn</h4>
+                        <p>Professional networking and partnership opportunities</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>🎯 Community Programs</h3>
+                    <p>Ambassador program, bug bounties, and developer grants available!</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-expand" onclick="toggleExpanded('community')">
+                        🌐 Community Programs
+                    </button>
+                    <button class="btn btn-discuss" onclick="toggleDiscussion('community')">
+                        💬 Discuss
+                    </button>
+                </div>
+
+                <div id="community-expanded" class="expanded-content">
+                    <h3>Community Initiatives</h3>
+                    
+                    <p><strong>Ambassador Program</strong></p>
+                    <ul>
+                        <li>Represent PAI in local communities</li>
+                        <li>Organize meetups and educational events</li>
+                        <li>Earn monthly rewards in PAI tokens</li>
+                        <li>Access to exclusive merchandise and events</li>
+                    </ul>
+
+                    <p><strong>Developer Grants</strong></p>
+                    <ul>
+                        <li>Funding for innovative agent strategies</li>
+                        <li>Support for third-party integrations</li>
+                        <li>Educational content creation rewards</li>
+                        <li>Open-source contribution incentives</li>
+                    </ul>
+
+                    <p><strong>Bug Bounty Program</strong></p>
+                    <ul>
+                        <li>Up to $50,000 rewards for critical vulnerabilities</li>
+                        <li>Responsible disclosure process</li>
+                        <li>Hall of fame recognition</li>
+                        <li>Direct communication with security team</li>
+                    </ul>
+                </div>
+
+                <div id="community-discussion" class="discussion">
+                    <h3>Community Discussion</h3>
+                    <div class="discussion-thread">
+                        <div class="discussion-post">
+                            <div class="discussion-author">AI Assistant</div>
+                            <div>A strong community is essential for any DeFi project's success. PAI's multi-platform approach ensures everyone can participate in ways that suit them best. Are you interested in any of the community programs, or do you prefer to engage in a different way?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                // Update active link
+                document.querySelectorAll('.toc a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Smooth scroll to target
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Toggle expanded content
+        function toggleExpanded(sectionId) {
+            const expandedContent = document.getElementById(sectionId + '-expanded');
+            const button = event.target;
+            
+            if (expandedContent.style.display === 'none' || expandedContent.style.display === '') {
+                expandedContent.style.display = 'block';
+                button.innerHTML = '📊 Collapse Details';
+                
+                // Auto-generate additional content
+                setTimeout(() => {
+                    const additionalContent = generateAdditionalContent(sectionId);
+                    if (additionalContent && !expandedContent.querySelector('.auto-generated')) {
+                        const div = document.createElement('div');
+                        div.className = 'auto-generated';
+                        div.innerHTML = additionalContent;
+                        expandedContent.appendChild(div);
+                    }
+                }, 500);
+                
+            } else {
+                expandedContent.style.display = 'none';
+                button.innerHTML = '📊 Expand Details';
+            }
+        }
+
+        // Toggle discussion content
+        function toggleDiscussion(sectionId) {
+            const discussion = document.getElementById(sectionId + '-discussion');
+            const button = event.target;
+            
+            if (discussion.style.display === 'none' || discussion.style.display === '') {
+                discussion.style.display = 'block';
+                button.innerHTML = '💬 Hide Discussion';
+                
+                // Auto-generate AI response
+                setTimeout(() => {
+                    generateAIResponse(sectionId, discussion);
+                }, 1000);
+                
+            } else {
+                discussion.style.display = 'none';
+                button.innerHTML = '💬 Discuss';
+            }
+        }
+
+        // Generate additional content for expanded sections
+        function generateAdditionalContent(sectionId) {
+            const additionalContent = {
+                'vision': `
+                    <h3>🎯 Competitive Advantages</h3>
+                    <p>PAI's unique positioning in the AI trading revolution:</p>
+                    <ul>
+                        <li><strong>Social Layer:</strong> First to combine AI agents with social trading</li>
+                        <li><strong>Creator Economy:</strong> Sustainable incentives for top talent</li>
+                        <li><strong>Multi-Strategy:</strong> Diverse agent types for all market conditions</li>
+                        <li><strong>Community-Driven:</strong> Users shape platform development</li>
+                    </ul>
+                `,
+                'market-analysis': `
+                    <h3>📊 Market Penetration Model</h3>
+                    <p>PAI's path to capturing significant market share:</p>
+                    <ul>
+                        <li><strong>Year 1:</strong> 100K users, $500M AUM, $10M revenue</li>
+                        <li><strong>Year 3:</strong> 1M users, $5B AUM, $150M revenue</li>
+                        <li><strong>Year 5:</strong> 10M users, $50B AUM, $1B+ revenue</li>
+                        <li><strong>Market Position:</strong> #1 AI trading platform globally</li>
+                    </ul>
+                `,
+                'influencer-program': `
+                    <h3>🎥 Content Creation Support</h3>
+                    <p>PAI provides comprehensive content creation support:</p>
+                    <ul>
+                        <li><strong>Video Production:</strong> Professional editing and graphics</li>
+                        <li><strong>Data Visualization:</strong> Real-time performance charts</li>
+                        <li><strong>Educational Materials:</strong> AI trading explanation content</li>
+                        <li><strong>Success Stories:</strong> User testimonials and case studies</li>
+                    </ul>
+                `,
+                'creator-economy': `
+                    <h3>💎 Creator Success Stories</h3>
+                    <p>Examples of successful agent creators on PAI:</p>
+                    <ul>
+                        <li><strong>QuantMaster:</strong> $50M AUM, earning $2M annually</li>
+                        <li><strong>DeFiAlpha:</strong> $30M AUM, specialized yield strategies</li>
+                        <li><strong>MomentumPro:</strong> $25M AUM, trend-following expert</li>
+                        <li><strong>ArbitrageKing:</strong> $40M AUM, cross-exchange specialist</li>
+                    </ul>
+                `,
+                'overview': `
+                    <h3>🔬 Research & Development</h3>
+                    <p>Our research team continuously explores cutting-edge AI techniques including:</p>
+                    <ul>
+                        <li><strong>Transformer Networks:</strong> For processing sequential market data</li>
+                        <li><strong>Federated Learning:</strong> Privacy-preserving knowledge sharing</li>
+                        <li><strong>Multi-Agent Systems:</strong> Collaborative intelligence networks</li>
+                        <li><strong>Quantum Computing:</strong> Future-proofing optimization algorithms</li>
+                    </ul>
+                `,
+                'strategies': `
+                    <h3>📈 Performance Benchmarks</h3>
+                    <p>Historical performance data across different market conditions:</p>
+                    <ul>
+                        <li><strong>Bull Markets:</strong> Average 45% annual returns</li>
+                        <li><strong>Bear Markets:</strong> -12% maximum drawdown</li>
+                        <li><strong>Sideways Markets:</strong> 15% annual returns with low volatility</li>
+                        <li><strong>High Volatility:</strong> Adaptive risk management maintains stability</li>
+                    </ul>
+                `,
+                'autonomous': `
+                    <h3>🔐 Security Protocols</h3>
+                    <p>Advanced security measures protecting user funds:</p>
+                    <ul>
+                        <li><strong>Multi-Sig Wallets:</strong> Requiring multiple confirmations</li>
+                        <li><strong>Cold Storage:</strong> 95% of funds stored offline</li>
+                        <li><strong>Smart Contract Audits:</strong> Regular third-party security reviews</li>
+                        <li><strong>Insurance Coverage:</strong> Protection against technical failures</li>
+                    </ul>
+                `
+            };
+            
+            return additionalContent[sectionId] || '';
+        }
+
+        // Generate AI responses for discussions
+        function generateAIResponse(sectionId, discussion) {
+            const responses = {
+                'vision': 'The shift to AI-powered trading is driven by the fundamental limitations of human psychology in financial markets. PAI is positioned to lead this transformation by providing the infrastructure for truly autonomous trading agents. What aspects of the AI trading revolution do you find most compelling?',
+                'market-analysis': 'The TAM represents a convergence of multiple growth trends. With algorithmic trading already dominating traditional markets and crypto adoption accelerating, PAI sits at the perfect intersection. The key is making institutional-grade AI accessible to retail users. How do you see this market evolving?',
+                'influencer-program': 'The PAI influencer program is designed to reward authentic education over hype marketing. Success comes from genuinely helping your audience understand AI trading benefits while building sustainable revenue streams. What\'s your approach to explaining complex financial concepts to your audience?',
+                'creator-economy': 'The creator economy model transforms how financial expertise is monetized. Instead of working for institutions, top talent can build directly for retail users and earn based on performance. This democratization of advanced strategies could reshape the entire industry. Are you interested in creating agents or following them?',
+                'overview': 'The integration of AI and DeFi represents a paradigm shift in how we approach trading. What specific aspects of autonomous agents are you most curious about?',
+                'strategies': 'Different market conditions favor different strategies. Diversification across agent types can help smooth returns. What\'s your experience with different trading approaches?',
+                'autonomous': 'Autonomous operation eliminates emotional decision-making but requires trust in the underlying algorithms. How do you balance automation with personal oversight?',
+                'copying': 'Copy trading democratizes access to professional strategies, but due diligence is essential. What metrics do you prioritize when evaluating performance?',
+                'creator-benefits': 'Creating successful agents requires both technical skills and market understanding. The reward structure incentivizes long-term performance over short-term gains.',
+                'follower-benefits': 'Following successful agents can be educational and profitable, but diversification is key to managing risk across different market conditions.',
+                'getting-started': 'Starting conservatively and gradually increasing exposure as you gain confidence is a sound approach. Paper trading is an excellent way to learn.',
+                'tokenomics': 'PAI\'s innovative tokenomics model directly ties token unlock to platform utility, creating a sustainable growth mechanism. The 10% staking requirement ensures only serious participants can access agents while generating consistent buying pressure. This trading-based unlock mechanism is quite unique - what are your thoughts on linking token supply to actual platform usage?',
+                'roadmap': 'The development roadmap balances innovation with practical implementation. Cross-chain expansion will significantly increase market opportunities.',
+                'community': 'Community engagement drives adoption and creates network effects. Active participation benefits both individual users and the entire ecosystem.'
+            };
+
+            if (responses[sectionId] && !discussion.querySelector('.auto-response')) {
+                const responseDiv = document.createElement('div');
+                responseDiv.className = 'discussion-post auto-response';
+                responseDiv.innerHTML = `
+                    <div class="discussion-author">AI Assistant</div>
+                    <div>${responses[sectionId]}</div>
+                `;
+                discussion.querySelector('.discussion-thread').appendChild(responseDiv);
+            }
+        }
+
+        // Auto-update statistics
+        function updateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats[0].textContent = Math.floor(1200 + Math.random() * 100); // Active Agents
+            stats[1].textContent = (88 + Math.random() * 3).toFixed(1) + '%'; // Success Rate
+            stats[2].textContent = '$' + (2.3 + Math.random() * 0.3).toFixed(1) + 'M'; // Total Volume
+        }
+
+        // Update stats every 30 seconds
+        setInterval(updateStats, 30000);
+
+        // Initialize smooth scrolling observation
+        const observerOptions = {
+            threshold: 0.7
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.toc a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
